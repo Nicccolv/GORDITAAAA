@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hamburguesita si o no</title>
+<style>
+  body {
+    background-color: black;
+    overflow: hidden;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    position: relative; /* Importante para posicionar las hamburguesas */
+  }
+
+  h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  .burger-btn, .rat-btn {
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    background-size: contain;
+    border: none;
+    margin: 0 10px; /* Espacio entre botones */
+  }
+
+  .burger-btn {
+    background: transparent url('hamburguesa.png') no-repeat center center; /* Ruta a tu imagen de hamburguesa */
+  }
+
+  .rat-btn {
+    background: transparent url('rata-triste.png') no-repeat center center; /* Ruta a tu imagen de rata triste */
+  }
+
+  /* Estilo para la animación de las hamburguesas */
+  .burger-rain {
+    position: absolute;
+    top: -50px; /* Empieza desde arriba */
+    left: calc(50% - 25px); /* Posición central inicial */
+    animation: burger-fall 5s linear forwards; /* Duración y animación */
+  }
+
+  /* Estilo para la animación de las ratas tristes */
+  .rat-rain {
+    position: absolute;
+    top: -50px; /* Empieza desde arriba */
+    left: calc(50% - 25px); /* Posición central inicial */
+    animation: rat-fall 5s linear forwards; /* Duración y animación */
+  }
+
+  @keyframes burger-fall {
+    to {
+      top: 100%; /* Termina en la parte inferior */
+      transform: rotate(720deg); /* Rotación durante la caída */
+      opacity: 0; /* Desaparece al final */
+    }
+  }
+
+  @keyframes rat-fall {
+    to {
+      top: 100%; /* Termina en la parte inferior */
+      transform: rotate(720deg); /* Rotación durante la caída */
+      opacity: 0; /* Desaparece al final */
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>hamburguesitas si o no</h1>
+
+  <!-- Contenedor para alinear los botones horizontalmente -->
+  <div style="display: flex; justify-content: center; align-items: center;">
+    <!-- Botón de hamburguesa para iniciar la animación -->
+    <button class="burger-btn" onclick="startBurgerRain()"></button>
+
+    <!-- Botón de rata triste para iniciar otra animación -->
+    <button class="rat-btn" onclick="startRatRain()"></button>
+  </div>
+
+  <!-- Script para controlar la animación y el audio -->
+  <script>
+    var burgerAudio = new Audio('tu-cancion.mp3'); // Ruta a tu primer archivo de música
+    burgerAudio.loop = true; // Repetir infinitamente
+
+    var ratAudio = new Audio('rata-cancion.mp3'); // Ruta a tu segundo archivo de música
+    ratAudio.loop = true; // Repetir infinitamente
+
+    function startBurgerRain() {
+      var numBurgers = 20; // Cantidad de hamburguesas que caerán
+
+      burgerAudio.play(); // Iniciar la reproducción del primer audio
+
+      for (var i = 0; i < numBurgers; i++) {
+        createBurger(); // Crear cada hamburguesa
+      }
+    }
+
+    function startRatRain() {
+      var numRats = 20; // Cantidad de ratas que caerán
+
+      ratAudio.play(); // Iniciar la reproducción del segundo audio
+
+      for (var i = 0; i < numRats; i++) {
+        createRat(); // Crear cada rata triste
+      }
+    }
+
+    function createBurger() {
+      var burger = document.createElement('img');
+      burger.src = 'hamburguesa.png'; // Ruta a tu imagen de hamburguesa
+      burger.classList.add('burger-rain');
+      positionBurger(burger);
+      document.body.appendChild(burger);
+    }
+
+    function createRat() {
+      var rat = document.createElement('img');
+      rat.src = 'rata-triste.png'; // Ruta a tu imagen de rata triste
+      rat.classList.add('rat-rain');
+      positionRat(rat);
+      document.body.appendChild(rat);
+    }
+
+    function positionBurger(burger) {
+      // Posiciona la hamburguesa de manera aleatoria en la parte superior
+      var startPos = Math.random() * window.innerWidth; // Posición inicial aleatoria en el ancho de la ventana
+      var endPos = Math.random() * window.innerHeight; // Posición final aleatoria en el alto de la ventana
+
+      burger.style.left = startPos + 'px';
+      burger.style.top = '-' + endPos + 'px';
+    }
+
+    function positionRat(rat) {
+      // Posiciona la rata triste de manera aleatoria en la parte superior
+      var startPos = Math.random() * window.innerWidth; // Posición inicial aleatoria en el ancho de la ventana
+      var endPos = Math.random() * window.innerHeight; // Posición final aleatoria en el alto de la ventana
+
+      rat.style.left = startPos + 'px';
+      rat.style.top = '-' + endPos + 'px';
+    }
+  </script>
+</body>
+</html>
